@@ -20,7 +20,7 @@ json.open("GET", url, true);
 json.send(null);
 json.onreadystatechange = function () {
 
-     if (ajax.readyState == 4 && (ajax.status == 200)) {
+     if (json.readyState == 4 && (json.status == 200)) {
 
         console.log("ready")            
         var Data = JSON.parse(json.responseText);
