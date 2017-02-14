@@ -13,6 +13,24 @@ function myFunction(p1, p2) {
     return p1 * p2;
 }
 document.getElementById("demo").innerHTML = myFunction(4, 3);
+    var url = "http://forverkliga.se/JavaScript/api/simple.php/?key=value&world=whatever"
+
+var json = new XMLHttpRequest();
+json.open("GET", url, true);
+json.send(null);
+json.onreadystatechange = function () {
+
+     if (ajax.readyState == 4 && (ajax.status == 200)) {
+
+        console.log("ready")            
+        var Data = JSON.parse(json.responseText);
+        console.log(Data);
+        console.log(Data.first);
+
+    } else {
+        console.log("not ready yet")            
+    }
+}
 </script>
 
 </body>
