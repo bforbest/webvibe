@@ -1,7 +1,7 @@
 ## Inlämningsuppgifter till clientside programmering
 
 ### Inlämningsuppgift 1
-Inlämningsuppgift 1 [editor on GitHub](https://github.com/bforbest/webvibe/edit/master/README.md)
+Inlämningsuppgift 1[Link to project](https://bforbest.github.io/webvibe/)
 
 
 - Bulleted
