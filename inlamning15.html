@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Inlämning 15</title>
+<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script type="text/jsx">
+class App extends React.Component {
+constructor(props) {
+    super(props);
+    this.handleOutput = this.handleOutput.bind(this);
+    this.state = {
+      inputnum1: 0,
+      inputnum2: 0
+    };
+  };
+  handleOutput(event){
+  console.log('App.inputChange körs');
+  this.setState({[event.target.name]: event.target.value})
+  }
+render () {
+    var total = +this.state.inputnum1 + +this.state.inputnum2;
+    console.log(this.state.inputnum1)
+    return (
+    <div><input  name="inputnum1"  onChange={this.handleOutput} /><span>+</span>  
+   <input   name="inputnum2"  onChange={this.handleOutput} /> 
+    <div>{parseInt(total)}</div>
+    </div>
+    )      
+}
+}
+
+ReactDOM.render(
+  <App/>,
+  document.getElementById('app')
+);
+</script>
+</head>
+<body>
+<div id="app">FAIL</div>
+</body>
+</html>
