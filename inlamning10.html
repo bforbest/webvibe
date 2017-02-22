@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Inlamning10</title>
+  <script>
+  var items = document.getElementById('items');
+var itemTextInput = document.getElementById('itemText');
+var itemsList = [];
+document.getElementById('addItem').addEventListener('click', function() {
+    var isValidInput = itemTextInput.value.trim();
+    if (isValidInput) {
+      itemsList.push(isValidInput);
+      for (var i = 0, n; n = itemsList[i]; i++) {
+          var li = document.createElement('li');
+          li.innerText = n;
+      }
+      items.appendChild(li);
+      li.addEventListener('click', function(e){
+         itemTextInput.value=e.target.innerHTML;
+        cUl = items.children;
+        for (var i = 0; i < cUl.length; i++) {
+          cUl[i].style.background="#ffffff";
+        }
+        
+          
+          e.target.style.background = "#eaeaea";
+        })
+    }
+    itemTextInput.value = '';
+    itemTextInput.focus();
+});
+  </script>
+</head>
+<body>
+<h1>Inlamning 10</h1>
+
+<input id="itemText" type="text" placeholder="Enter item">
+<button id="addItem">Add item</button>
+<br>
+<br>
+<ul id="items"></ul>
+</body>
+</html>
