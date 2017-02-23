@@ -1,37 +1,82 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>World</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
 <body>
-
-<h1>JavaScript Functions</h1>
-
-<p>This example calls a function which performs a calculation, and returns the result:</p>
-
-<p id="demo"></p>
-
+    <div class="container">
+        <div class="row">		
+            <div class="col-md-offset-3 col-md-6">
+			<h1>Inlämningsuppgift 12</h1>
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">World FAQ</h3>
+					</div>					
+						 <div class="list-group">
+							<div class="list-group-item">
+							  <h4 class="list-group-item-heading">Hur många människor finns det i hela världen?</h4>
+							  <p id="population" class="list-group-item-text"></p>
+							</div>
+							<div  class="list-group-item">
+							  <h4 class="list-group-item-heading">Hur många människor finns i Europa?</h4>
+							  <p id="epopulation" class="list-group-item-text">Something went wrong</p>
+							</div>
+							<div class="list-group-item">
+							  <h4 class="list-group-item-heading">Hur många kvinnor finns det i Zimbabwe?</h4>
+							  <p id="zwomen" class="list-group-item-text">something went wrong</p>
+							</div>
+							<div class="list-group-item">
+							  <h4 class="list-group-item-heading">Vilket land har minst befolkning?</h4>
+							  <p id="lpopulation" class="list-group-item-text">something went wrong</p>
+							</div>
+							<div class="list-group-item">
+							  <h4 class="list-group-item-heading">Vilken kontinent har högst befolkning?</h4>
+							  <p class="list-group-item-text">Not done yet</p>
+							</div>
+						</div>
+				<div class="panel-footer">
+					<a href="/" class="btn btn-primary">Back</a>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 <script>
-function myFunction(p1, p2) {
-    return p1 * p2;
-}
-document.getElementById("demo").innerHTML = myFunction(4, 3);
-    var url = "//forverkliga.se/JavaScript/api/simple.php/?key=value&world=whatever"
-
+    var url = "http://forverkliga.se/JavaScript/api/simple.php?world"
 var json = new XMLHttpRequest();
 json.open("GET", url, true);
 json.send(null);
 json.onreadystatechange = function () {
-
-     if (json.readyState == 4 && (json.status == 200)) {
-
-        console.log("ready")            
+     if (json.readyState == 4 && (json.status == 200)) {         
         var Data = JSON.parse(json.responseText);
-        console.log(Data);
-        console.log(Data.first);
-
-    } else {
-        console.log("not ready yet")            
+		for(i=0, antal=0; i<Data.length;i++){
+		  antal+=Data[i].population;
+		}
+		document.getElementById("population").innerHTML=antal;
+		for(i=0, antale=0; i<Data.length;i++){
+		  if(Data[i]["continent"]=="Europe"){
+			antale+=Data[i].population;
+			}
+		}
+		document.getElementById("epopulation").innerHTML=antale;
+		var zim = Data.filter(function(e){
+			return e.name==='Zimbabwe'; 
+		});
+		document.getElementById("zwomen").innerHTML=zim[0].pFemale * zim[0].population;
+		var lpop=Math.min.apply(Math,Data.map(function(o){return o.population;}));
+		var lcon = Data.filter(function(e){
+			return e.population===lpop;
+		})
+		document.getElementById("lpopulation").innerHTML=lcon[0].name;
     }
 }
 </script>
-
 </body>
+
 </html>
