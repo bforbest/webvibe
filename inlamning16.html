@@ -11,7 +11,7 @@
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <link rel="stylesheet" href="css/custom.css">
 	 <script type="text/jsx">
-  class App extends React.Component {
+ class App extends React.Component {
   constructor(props) {
     super(props);
     this.updateCountryList=this.updateCountryList.bind(this);
@@ -69,12 +69,12 @@ class CountryList extends React.Component {
   }
   handleClick(event,i) {
     let x = this.refs.countrylistref.children
-    let el = x[i].children[1].style.display;
+    let el = x[i].children[0].style.display;
     if(el!='none'){
-      x[i].children[1].style.display='none';
+      x[i].children[0].style.display='none';
       x[i].style.background='#ffffff';
     }else{
-      x[i].children[1].style.display='block';
+      x[i].children[0].style.display='block';
       x[i].style.background='#eaeaea';
     }
   }
@@ -83,11 +83,12 @@ class CountryList extends React.Component {
     const countryL =  this.props.data.map(function(country,i) {
              return (
             <div key={i} onClick={(event) =>c.handleClick(event,i)} className="country">
+                 <button type="button" name={country.name} onClick={c.props.st}  className={"pull-right btn btn-danger"} style={{display:'none',height:'42px'}}>Remove</button>
                  <a>
                 {country.name} got {country.population} population
                 and is placed in {country.continent} 
                    </a>
-                 <button type="button" name={country.name} onClick={c.props.st}  className={"pull-right"} style={{display:'none'}}>Remove</button>
+                 
             </div>
           );
         })
