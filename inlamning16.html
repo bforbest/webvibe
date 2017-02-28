@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>World</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://fb.me/react-with-addons-15.1.0.js"></script>
+    <script src="https://fb.me/react-dom-15.1.0.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.8.1/axios.min.js"> </script>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">		
+            <div class="col-md-offset-3 col-md-6">
+			<h1>Inlämningsuppgift 12</h1>
+                <div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">World FAQ</h3>
+					</div>					
+						 <div id="root"></div>
+				<div class="panel-footer">
+					<a href="/" class="btn btn-primary">Back</a>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script type="text/jsx">
+  class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.updateCountryList=this.updateCountryList.bind(this);
+    this.state = { 
+        countries: [], 
+        requestFailed: false
+                 };
+  }
+  updateCountryList(event){ 
+    let ctr=event.target.name;
+    let newList = this.state.countries.filter(function(el) {
+    return el.name !== ctr;
+    });
+    this.setState({
+      countries:newList
+    });
+  }
+  componentDidMount() {
+    fetch('http://forverkliga.se/JavaScript/api/simple.php?world')
+    .then(response => {
+        if(!response.ok) {
+            throw Error("Network request failed")
+        }     
+        return response
+    })
+      .then(data => data.json())
+      .then(data => {          
+        this.setState({
+            countries: data
+        })
+    }, () => {       
+        this.setState({
+            requestFailed: true
+        })
+    })    
+  }
+  render() {
+     if(this.state.requestFailed){return (<div>something went wrong</div>)}
+    else{
+    return (
+     
+      <div>
+        <h1>Countries g!</h1>
+        <CountryList data={this.state.countries} st={this.updateCountryList}/>        
+      </div>
+    )
+    }
+  }
+}
+class CountryList extends React.Component {
+   constructor(props) {
+    super(props);
+    this.state = {oldButton: ''}
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(event,i) {
+    let x = this.refs.countrylistref.children
+    let el = x[i].children[1].style.display;
+    if(el!='none'){
+      x[i].children[1].style.display='none';
+      x[i].style.background='#ffffff';
+    }else{
+      x[i].children[1].style.display='block';
+      x[i].style.background='#eaeaea';
+    }
+  }
+  render() {
+    const c = this;
+    const countryL =  this.props.data.map(function(country,i) {
+             return (
+            <div key={i} onClick={(event) =>c.handleClick(event,i)} className="country">
+                 <a>
+                {country.name} got {country.population} population
+                and is placed in {country.continent} 
+                   </a>
+                 <button type="button" name={country.name} onClick={c.props.st}  className={"pull-right"} style={{display:'none'}}>Remove</button>
+            </div>
+          );
+        })
+    return (
+            <div ref="countrylistref">{countryL}
+      </div>
+      
+    )
+  }
+}
+ReactDOM.render(<App />, 
+                document.getElementById('root'));
+
+  </script>
+</body>
+
+</html>
