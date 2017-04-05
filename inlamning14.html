@@ -12,13 +12,11 @@
   <script type="text/jsx">
 class App extends React.Component {
 render () {
-    return ( 
-    <ol>
-     <li>Katt</li>
-     <li>hav</li> 
-     <li>gredelin</li> 
-     <li>infrastruktur</li>
-    </ol>
+const list = ['Katt', 'hav', 'gredelin', 'infrastruktur'];
+    return (
+	<ol>
+		{list.map(element => <li>{element}</li>)}
+	</ol>
     )
 }
 }
